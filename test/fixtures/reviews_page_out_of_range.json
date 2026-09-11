@@ -1,0 +1,9 @@
+{
+  "name": "reviews_page_out_of_range",
+  "face": "itunes",
+  "pathPattern": "^/jp/rss/customerreviews/page=11/id=1059224316/sortBy=mostRecent/json$",
+  "params": {},
+  "status": 400,
+  "contentType": "text/javascript; charset=UTF-8",
+  "body": "CustomerReviews RSS page depth is limited to 10"
+}

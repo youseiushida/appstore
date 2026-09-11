@@ -1,0 +1,20 @@
+name: live
+
+# 実際の App Store を叩く検証。PR では実行せず、main への push・毎日 06:00 JST・手動実行で回す。
+on:
+  schedule:
+    - cron: "0 21 * * *" # 21:00 UTC = 06:00 JST
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+jobs:
+  live:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+      - name: 仕様調査テスト + ライブラリのライブ検証
+        run: deno task test:live

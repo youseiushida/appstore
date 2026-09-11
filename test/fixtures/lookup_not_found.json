@@ -1,0 +1,11 @@
+{
+  "name": "lookup_not_found",
+  "face": "itunes",
+  "pathPattern": "^/lookup$",
+  "params": {
+    "id": "999999999999999"
+  },
+  "status": 200,
+  "contentType": "text/javascript; charset=utf-8",
+  "body": "\n\n\n{\n \"resultCount\":0,\n \"results\": []\n}\n\n\n"
+}

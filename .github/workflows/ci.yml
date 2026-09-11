@@ -1,0 +1,40 @@
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  # オフラインで完結する検証（整形・lint・型・fixture テスト・カバレッジ・公開判定）
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+      - name: 整形
+        run: deno fmt --check
+      - name: lint
+        run: deno lint
+      - name: 型チェック
+        run: deno task check
+      - name: 単体 + fixture 統合テスト（カバレッジ 90% を強制）
+        run: deno task test:cov
+      - name: カバレッジの内訳をログに残す
+        run: deno task coverage:report
+      - name: JSR へ公開できる状態か確認（アップロードはしない）
+        run: deno publish --dry-run
+
+  # Node（JSR の npm 互換で使われる想定）でも動くことを確認
+  node:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Node から src/ を直接呼ぶ smoke
+        run: node --experimental-strip-types test/node/smoke.ts

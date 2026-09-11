@@ -1,0 +1,9 @@
+{
+  "name": "reviews_empty",
+  "face": "itunes",
+  "pathPattern": "^/jp/rss/customerreviews/page=1/id=6787969363/sortBy=mostRecent/json$",
+  "params": {},
+  "status": 200,
+  "contentType": "text/javascript; charset=UTF-8",
+  "body": "{\"feed\":{\"author\":{\"name\":{\"label\":\"iTunes Store\"},\"uri\":{\"label\":\"http://www.apple.com/jp/itunes/\"}},\"updated\":{\"label\":\"2026-09-11T14:39:21-07:00\"},\"rights\":{\"label\":\"Copyright 2008 Apple Inc.\"},\"title\":{\"label\":\"iTunes Store: カスタマーレビュー\"},\"icon\":{\"label\":\"http://itunes.apple.com/favicon.ico\"},\"link\":[{\"attributes\":{\"rel\":\"alternate\",\"type\":\"text/html\",\"href\":\"https://music.apple.com/WebObjects/MZStore.woa/wa/viewGrouping?cc=jp&id=1000\"}},{\"attributes\":{\"rel\":\"self\",\"href\":\"https://itunes.apple.com/jp/rss/customerreviews/page=1/id=6787969363/sortBy=mostRecent/json\"}},{\"attributes\":{\"rel\":\"first\",\"href\":\"\"}},{\"attributes\":{\"rel\":\"last\",\"href\":\"\"}},{\"attributes\":{\"rel\":\"previous\",\"href\":\"\"}},{\"attributes\":{\"rel\":\"next\",\"href\":\"\"}}],\"id\":{\"label\":\"https://itunes.apple.com/jp/rss/customerreviews/page=1/id=6787969363/sortBy=mostRecent/json\"}}}"
+}

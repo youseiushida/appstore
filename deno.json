@@ -1,0 +1,51 @@
+{
+  "name": "@uyu/appstore",
+  "version": "0.1.0",
+  "exports": "./src/mod.ts",
+  "license": "MIT",
+  "imports": {
+    "@std/assert": "jsr:@std/assert@^1.0.0"
+  },
+  "compilerOptions": {
+    "strict": true,
+    "noUncheckedIndexedAccess": true
+  },
+  "coverage": {
+    "thresholds": {
+      "lines": 90,
+      "branches": 90,
+      "functions": 90
+    }
+  },
+  "publish": {
+    "exclude": [
+      ".github",
+      "coverage",
+      "live_integration",
+      "test",
+      "tools"
+    ]
+  },
+  "fmt": {
+    "exclude": [
+      "coverage",
+      "test/fixtures"
+    ]
+  },
+  "lint": {
+    "exclude": [
+      "coverage",
+      "test/fixtures"
+    ]
+  },
+  "tasks": {
+    "check": "deno check \"src/**/*.ts\" \"test/**/*.ts\" \"tools/*.ts\" \"live_integration/*.ts\"",
+    "test": "deno test --allow-read --allow-net=127.0.0.1 test/unit test/integration",
+    "test:cov": "deno test --allow-read --allow-net=127.0.0.1 --coverage=coverage --clean --coverage-threshold=90 test/unit test/integration",
+    "coverage:report": "deno coverage coverage --exclude=test --threshold=90",
+    "test:live": "deno test --allow-net --retry=1 test/live/ live_integration/",
+    "fixtures": "deno run --allow-read --allow-write --allow-net tools/capture_fixtures.ts",
+    "node:smoke": "node --experimental-strip-types test/node/smoke.ts",
+    "publish:dry": "deno publish --dry-run --allow-dirty"
+  }
+}

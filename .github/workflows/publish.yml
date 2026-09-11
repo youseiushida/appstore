@@ -1,0 +1,41 @@
+name: publish
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: read
+  id-token: write # JSR への OIDC publish に必要
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+      - name: タグと deno.json の version が一致するか確認
+        run: |
+          version=$(deno eval 'console.log(JSON.parse(Deno.readTextFileSync("deno.json")).version)')
+          if [ "v${version}" != "${GITHUB_REF_NAME}" ]; then
+            echo "タグ ${GITHUB_REF_NAME} と deno.json の ${version} が一致しません" >&2
+            exit 1
+          fi
+      - run: deno fmt --check
+      - run: deno lint
+      - run: deno task check
+      - run: deno task test:cov
+      - name: JSR へ publish
+        run: deno publish
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: 公開されたパッケージを Node から呼ぶ（公開後 smoke）
+        run: |
+          mkdir -p /tmp/published-smoke
+          cd /tmp/published-smoke
+          npm init -y >/dev/null
+          npx --yes jsr@latest add "@uyu/appstore@${GITHUB_REF_NAME#v}"
+          node -e "import('@uyu/appstore').then(async (m) => { const app = await m.getApp('1059224316', { country: 'jp' }); if (!app.subtitle) throw new Error('subtitle が空です'); console.log('published smoke ok:', app.name); })"

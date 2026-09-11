@@ -1,0 +1,13 @@
+{
+  "name": "search_no_hits",
+  "face": "itunes",
+  "pathPattern": "^/search$",
+  "params": {
+    "term": "zzzzqqqxxyy",
+    "country": "jp",
+    "entity": "software"
+  },
+  "status": 200,
+  "contentType": "text/javascript; charset=utf-8",
+  "body": "\n\n\n{\n \"resultCount\":0,\n \"results\": []\n}\n\n\n"
+}
